@@ -17,7 +17,7 @@ namespace CenDek.Controllers
     {
         private CenDekContext db = new CenDekContext();
 
-        // GET: home/index
+        // GET:  home/index
         public ActionResult Index()
         {
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "Name");
