@@ -1,0 +1,37 @@
+﻿@model DataAccess.Models.Image
+
+<div class="form-group">
+    @{
+        if (Model != null)
+        {
+            using (Ajax.BeginForm("DeleteImg", "Images", null, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "divList", }))
+            {@Html.Hidden("ImageID", (int)Model.ImageID)
+
+                <div class="dropzone dz-clickable dz-started">
+
+                    <div class="dz-preview dz-image-preview dz-processing dz-success dz-complete">
+                        <div class="dz-image">
+                            @{string path = "/Images/WallImages/imagepath/" + Model.Name + '.' + Model.Ext;}
+                            <img data-dz-thumbnail src="@path" alt="..." class="img-thumbnail" />
+                        </div>
+                           
+                            <button class="fa btn icon-btn btn-danger" style="width:100px;text-align:left;font-size:12px">
+                                <i class="glyphicon btn-glyphicon glyphicon-remove-circle img-circle text-danger"></i>Delete
+                            </button>
+                    </div>
+                </div>
+
+
+                @*<input type="submit" name="name" class="btn btn-danger btn-inverse" value="Delete" />*@
+                                @*<button class="btn btn-danger" value="Delete"><span class='glyphicon glyphicon-trash'></span></button>*@@*<button class="btn btn-danger btn-inverse" type="button">Delete</button>*@
+
+                                    }
+                                }
+                                else
+                                {
+                                    <div style="text-align:center" class="panel panel-success">
+                                        <span class="field-validation-error">Please Select Image</span>
+                                    </div>
+                                }
+    }
+</div>

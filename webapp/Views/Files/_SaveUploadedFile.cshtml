@@ -1,0 +1,64 @@
+﻿@model List<DataAccess.Models.FileTmp>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+        <table class="table table-hover">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>
+                        @Html.DisplayName("File Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("File Type")
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    @Html.Hidden("FileID", (int)item.ID)
+                    <tr>
+
+                        <td>
+                            @item.Name
+                        </td>
+
+                        <td><h3><span class="label label-default">@item.Type</span></h3></td>
+
+                        <td style="text-align:right">
+                            <a href="@Url.Action("SaveFilledFile", "Files", new { @id = item.ID }) " data-modal='' class="btn btn-success"> <span class='glyphicon glyphicon-ok'>   </span></a>
+                        </td>
+                        <td>
+                            @using (Ajax.BeginForm("DeleteFil", "Files", null, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "divListFile", }))
+                            {@Html.Hidden("FileID", (int)item.ID)                            <button class="btn btn-danger" value="Delete"><span class='glyphicon glyphicon-trash'></span></button> }
+                            @*<a class="btn btn-danger" data-modal='' title='Delete' value="@item.ID" href="@Url.Action("DeleteFil","Files",new { id = @item.ID})"><span class='glyphicon glyphicon-trash'></span></a>*@
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
+    else
+    {
+
+        <div style="text-align:center" class="panel panel-success">
+            <span class="field-validation-error">Please Select File</span>
+        </div>
+    }
+}
+
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/bundles/customJs")

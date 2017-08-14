@@ -1,0 +1,46 @@
+﻿@Scripts.Render("~/bundles/bootstrap")
+
+<!-- Forms : plugin -->
+@Scripts.Render("~/bundles/forms")
+<!-- jQGrid : plugin -->
+@Scripts.Render("~/bundles/jq-grid")
+
+
+
+@Scripts.Render("~/bundles/customJs")
+@*@Scripts.Render("~/bundles/owl")*@
+@Scripts.Render("~/bundles/smartadmin")
+@Scripts.Render("~/Scripts/FormDropzone.js")
+<!-- DO NOT REMOVE : GLOBAL FUNCTIONS! -->
+<script>
+    $(document).ready(function () {
+        pageSetUp();
+        drawBreadCrumb();
+    });
+</script>
+@if (@Model is HelperResult)
+{
+    @Model
+}
+<!-- Your GOOGLE ANALYTICS CODE Below-->
+@*<script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'xx-xxxxxxxx-x']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>*@
+
+
+
+
+
+
+    @*<script> if (!window.jQuery) { document.write('<script src="/scripts/libs/jquery-2.1.1.min.js"><\/script>'); } </script>*@

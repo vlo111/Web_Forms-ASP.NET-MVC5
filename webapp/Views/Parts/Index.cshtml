@@ -1,0 +1,322 @@
+﻿@model DataAccess.Models.Part
+@{
+    Layout = null;
+    DataAccess.CenDekContext context = new DataAccess.CenDekContext();
+}
+
+<div id="content">
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+        <!-- START ROW -->
+        <div class="row">
+            <!-- NEW COL START -->
+            <article class="col-sm-12 col-md-12 col-lg-6">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>Part Add </h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+                            @using (Html.BeginForm("Index", "Parts", FormMethod.Post, new { @class = "smart-form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                <header style="text-align:center">
+                                    Part
+                                </header>
+                                if (!ViewData.ModelState.IsValid)
+                                {
+                                    if (ViewData.ModelState["PartErrors"] != null)
+                                    {
+                                        <div style="text-align:center" class="panel panel-success">
+                                            <span class="field-validation-error">
+                                                @ViewData.ModelState["PartErrors"].Errors[0].ErrorMessage
+                                                @Html.ValidationMessage(@ViewData.ModelState["PartErrors"].Errors[0].ErrorMessage, "", new { @class = "text-danger" })
+                                            </span>
+                                        </div>
+                                    }
+                                }
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label labPad">Product Line</label>
+                                        <div class="col-md-5">
+                                            @Html.DropDownListFor(model => model.ProductLineID, (SelectList)ViewBag.ProductLineID, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.ProductLineID, "", new { @class = "text-danger" })
+
+
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-2 control-label">
+                                            <a class="btn icon-btn btn-success" data-modal='' href="/ProductLine/Create" id="btnCreate">
+                                                <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
+                                                Add
+                                            </a>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label labPad">Category</label>
+                                        <div class="col-md-5">
+                                            <select id="CategoryID" required name="CategoryID" style="width:100%" class="select2">
+                                                @foreach (var item in ViewBag.CategoryPID)
+                                                {
+                                                    string catId = Convert.ToString(item.CategoryID);
+                                                    <optgroup label=@item.Name>
+                                                        @foreach (var childItem in context.Categories.Where(i => i.CategoryParentID == catId).OrderBy(n => n.Name))
+                                                        {
+                                                            <option value=@childItem.Name>@childItem.Name</option>
+                                                        }
+                                                    </optgroup>
+                                                }
+                                            </select>
+                                            @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+
+
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-2 control-label">
+                                            <a class="btn icon-btn btn-success" data-modal='' href="/Category/Create" id="btnCreate">
+                                                <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
+                                                Add
+                                            </a>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label labPad">Name</label>
+                                        <div class="col-md-5">
+                                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label labPad">Description</label>
+                                        <div class="col-md-5">
+                                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label labPad">Part Status</label>
+                                        <div class="col-md-5">
+                                            @Html.DropDownListFor(model => model.PartStatusID,(SelectList)ViewBag.PartStatusID, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.PartStatusID, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-2 control-label">
+                                            <a class="btn icon-btn btn-success" data-modal='' href="/Status/Create" id="btnCreate">
+                                                <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
+                                                Add
+                                            </a>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label labPad">Weight</label>
+                                        <div class="col-md-5">
+                                            @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control", @Value = 0 } })
+                                            @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label labPad">Height</label>
+                                        <div class="col-md-5">
+                                            @Html.EditorFor(model => model.Height, new { htmlAttributes = new { @class = "form-control", @Value = 0 } })
+                                            @Html.ValidationMessageFor(model => model.Height, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label labPad">Width</label>
+                                        <div class="col-md-5">
+                                            @Html.EditorFor(model => model.Width, new { htmlAttributes = new { @class = "form-control", @Value = 0 } })
+                                            @Html.ValidationMessageFor(model => model.Width, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label labPad">Length</label>
+                                        <div class="col-md-5">
+                                            @Html.EditorFor(model => model.Length, new { htmlAttributes = new { @class = "form-control", @Value = 0 } })
+                                            @Html.ValidationMessageFor(model => model.Length, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label labPad">Meas Type</label>
+                                        <div class="col-md-5">
+                                            @Html.DropDownListFor(model => model.MeasUnitID, (SelectList)ViewBag.MeasUnitID, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.MeasUnitID, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-2 control-label">
+                                            <a style="" class="btn icon-btn btn-success" data-modal='' href="/MeasUnit/Create" id="btnCreate">
+                                                <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
+                                                Add
+                                            </a>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                @Html.Partial("../Prices/Index")
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label labPad">Alt Part Id</label>
+                                        <div class="col-md-5">
+                                            @Html.EditorFor(model => model.AltPartID, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.AltPartID, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+
+
+                                <footer>
+                                    <button type="submit" id="SubPart" class="btn btn-primary">
+                                        Submit
+                                    </button>
+                                    <button type="button" class="btn btn-default" onclick="window.history.back();">
+                                        Back
+                                    </button>
+                                </footer>
+                            }
+                        </div>
+                        <!-- end widget content -->
+                    </div>
+                    <!-- end widget div -->
+                </div>
+                <!-- end widget -->
+            </article>
+            <!-- END COL -->
+            <!-- NEW COL START -->
+            <article class="col-sm-12 col-md-12 col-lg-6">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>Files</h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+                            <div class="smart-form">
+                                <header style="text-align:center">
+                                    Image
+                                </header>
+                                <!-- widget div-->
+                                <fieldset>
+                                    <div class="form-group">
+                                        <div class="widget-body">
+                                            @using (Ajax.BeginForm("SaveUploadedFile", "Images", null, new AjaxOptions
+                                            {
+                                                HttpMethod = "GET",
+                                                InsertionMode = InsertionMode.Replace,
+                                                UpdateTargetId = "divList",
+                                            }, new { @class = "dropzone", @id = "ImageDropzone", @data_modal = "" }
+))
+                                            {
+                                                <input type="submit" value="Show" class="btn btn-primary col-md-12">
+                                            }
+                                        </div>
+                                    </div>
+                                    <div id="divList">
+
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <!-- end widget content -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+                            <div class="smart-form">
+                                <header style="text-align:center">
+                                    File
+                                </header>
+                                <!-- widget div-->
+                                <fieldset>
+                                    <div class="form-group">
+                                        <div class="widget-body">
+                                            @using (Ajax.BeginForm("SaveUploadedFile", "Files", null, new AjaxOptions
+                                            {
+                                                HttpMethod = "GET",
+                                                InsertionMode = InsertionMode.Replace,
+                                                UpdateTargetId = "divListFile",
+                                            }, new { @class = "dropzone", @id = "FileDropzone", @data_modal = "" }
+))
+                                            {
+                                                <input type="submit" value="Upload" class="btn btn-primary col-md-12">
+                                            }
+                                        </div>
+                                    </div>
+                                    <div id="divListFile"></div>
+                                    <div id="SelectedFile"></div>
+                                </fieldset>
+
+                            </div>
+                        </div>
+                        <!-- end widget content -->
+                    </div>
+                    <!-- end widget div -->
+                </div>
+                <!-- end widget -->
+            </article>
+            <!-- END COL -->
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- end widget grid -->
+</div>

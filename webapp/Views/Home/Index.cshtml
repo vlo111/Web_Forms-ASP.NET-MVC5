@@ -1,0 +1,10 @@
+﻿<!-- MAIN CONTENT -->
+@{
+    ViewBag.Title = "Home";
+}
+<div class="container">
+    @Html.Partial("../Parts/Index", new DataAccess.Models.Part())
+</div>
+<!-- END MAIN CONTENT -->
+@section pagespecific {
+}

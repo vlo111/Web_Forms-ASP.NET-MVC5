@@ -1,0 +1,53 @@
+﻿
+<div class="panel-group smart-accordion-default" id="accordion-2">
+    <fieldset>
+
+
+        <label class="col-md-1 control-label labPad">Price</label>
+        <div class="panel-heading">
+            <div class="panel-title panel panel-success">
+                <a data-toggle="collapse" data-parent="#accordion-2" href="#collapseThree-1" style="text-align:right;" class="collapsed">
+                    ENTER
+                    <i class="fa btn icon-btn btn-success col-md-offset-4">
+                        <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>Select
+                    </i>
+                    <i class="fa btn icon-btn btn-danger col-md-offset-4">
+                        <span class="glyphicon btn-glyphicon glyphicon-minus img-circle text-danger"></span>Select
+                    </i>
+                </a>
+
+            </div>
+            <div class="form-inline panel panel-info" style="text-align:center">
+                    <label class="control-label input-group">Sell $</label>
+                    <div class="control-label text-success input-group" id="LinkUpdSellText"></div>
+
+                    <label class="control-label input-group">CAD.</label>
+
+                <label class="control-label input-group">Cost $</label>
+
+                    <div id="LinkUpdCostText" class=" text-success input-group"></div>
+                    <label class="control-label input-group">CAD.</label>
+            </div>
+            @if (!ViewData.ModelState.IsValid)
+            {
+                if (ViewData.ModelState["ReviewErrors"] != null)
+                {
+
+                <div style="text-align:center" class="panel panel-success">
+                    <span class="field-validation-error">
+                        @ViewData.ModelState["ReviewErrors"].Errors[0].ErrorMessage
+                        @Html.ValidationMessage(@ViewData.ModelState["ReviewErrors"].Errors[0].ErrorMessage, "", new { @class = "text-danger" })
+                    </span>
+                </div>
+                }
+            }
+
+
+        </div>
+    </fieldset>
+    <div id="collapseThree-1" class="panel-collapse collapse">
+        <div class="panel panel-primary">
+            @Html.Partial("../Prices/_CreatePrice", new DataAccess.Models.Price())
+        </div>
+    </div>
+</div>

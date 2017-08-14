@@ -1,0 +1,49 @@
+﻿@model DataAccess.Models.Currency
+@{
+    Layout = null;
+}
+<link href="~/Content/StyleValidator.css" rel="stylesheet" />
+@Scripts.Render("~/bundles/jqueryval")
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title">Currency</h3>
+</div>
+<div class="modal-body">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.CurrencyID)
+
+
+            <div class="form-group">
+                @Html.Label("Code", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @data_val_maxlength= "The Code field must have maximum length of '3'." } })
+                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Add" class="btn btn-success" />
+                        <button class="btn btn-default" data-dismiss="modal">Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

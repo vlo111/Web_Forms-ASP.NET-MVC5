@@ -1,0 +1,23 @@
+I created automatic migration - add migration data base, 
+modified data NOT NULL - date time today
+
+
+
+SET IDENTITY_INSERT [dbo].[Category] ON
+INSERT INTO [dbo].[Category] ([CategoryID], [Name], [CategoryParentID]) VALUES (1, N'Alaskan', NULL)
+INSERT INTO [dbo].[Category] ([CategoryID], [Name], [CategoryParentID]) VALUES (2, N'Alaska', N'1')
+INSERT INTO [dbo].[Category] ([CategoryID], [Name], [CategoryParentID]) VALUES (3, N'Hawaii', N'1')
+INSERT INTO [dbo].[Category] ([CategoryID], [Name], [CategoryParentID]) VALUES (4, N'California', NULL)
+INSERT INTO [dbo].[Category] ([CategoryID], [Name], [CategoryParentID]) VALUES (5, N'Oregon', N'4')
+INSERT INTO [dbo].[Category] ([CategoryID], [Name], [CategoryParentID]) VALUES (6, N'Washington', N'4')
+INSERT INTO [dbo].[Category] ([CategoryID], [Name], [CategoryParentID]) VALUES (7, N'Mountain', NULL)
+INSERT INTO [dbo].[Category] ([CategoryID], [Name], [CategoryParentID]) VALUES (8, N'Arizona', N'7')
+INSERT INTO [dbo].[Category] ([CategoryID], [Name], [CategoryParentID]) VALUES (9, N'Colorado', N'7')
+INSERT INTO [dbo].[Category] ([CategoryID], [Name], [CategoryParentID]) VALUES (10, N'Eastern', NULL)
+INSERT INTO [dbo].[Category] ([CategoryID], [Name], [CategoryParentID]) VALUES (11, N'Connecticut', N'10')
+INSERT INTO [dbo].[Category] ([CategoryID], [Name], [CategoryParentID]) VALUES (12, N'Delaware', N'10')
+SET IDENTITY_INSERT [dbo].[Category] OFF
+
+
+
+cat

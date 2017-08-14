@@ -1,0 +1,47 @@
+﻿@model DataAccess.Models.FileTmp
+
+@{
+    Layout = null;
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title">File Delete</h3>
+    <h4 style="color:crimson">Are you sure you want to delete this?</h4>
+</div>
+<div class="modal-body">
+    <dl class="dl-horizontal">
+        <dt style="text-align:center">
+            @Html.DisplayFor(model => model.Name)
+            .@Html.DisplayFor(model => model.Type)
+        </dt>
+        <dd>
+            @{string path = ""; if (Model.Type == "jpg" || Model.Type == "png" || Model.Type == "gif") { path = "/Images/WallFiles/filepath/" + Model.Name + "." + Model.Type; }
+                else if (Model.Type == "pdf") { path = "/Images/pdf.png"; }
+                else if (Model.Type == "txt") { path = "/Images/txt.png"; }
+            }
+            <img src="@path" alt="" style="height:200px;width:200px" />
+        </dd>
+    </dl>
+</div>
+<div class="modal-footer">
+    @*@using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <button class="btn btn-default" data-dismiss="modal">Back</button>
+        </div>
+    }*@
+    @using (Ajax.BeginForm("DeleteFil", "Files", null, new AjaxOptions
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "divListFile",
+    }))
+    {
+        <input type="submit" class="btn btn-danger" value="Delete" />
+        <button class="btn btn-default" data-dismiss="modal">Back</button>
+    }
+</div>
+
