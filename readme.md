@@ -13,3 +13,5 @@
 
 
 **Note:** The packages used by the project are the default package files when you create a new MVC template within Visual Studio.
+[![technology upgrade](https://goo.gl/vfc3jG)](#)
+[![SensioLabsInsight](https://goo.gl/3ar25A)](#)
